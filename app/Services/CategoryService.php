@@ -35,7 +35,7 @@ class CategoryService {
     }
 
     public function delete(Category $category){
-        
+       
         $category = Category::withCount('ticket')->find($category->id);
 
         if ($category->ticket_count > 0) {
