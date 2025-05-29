@@ -20,4 +20,16 @@ class Ticket extends Model
     public function getCategoryNameAttribute(){
         return $this->category?->name ?? 'Sem categoria';
     }
+
+
+    public function scopeFilter($query, array $filters){
+        
+        return $query
+                    ->when($filters['status'] ?? false, fn($q, $status) =>
+                        $q->where('status', $status)
+                    )
+                    ->when($filters['category_id'] ?? false, fn($q, $category) =>
+                        $q->where('category_id', $category)
+                    );
+    }
 }

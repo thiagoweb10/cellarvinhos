@@ -12,9 +12,12 @@ use App\Exceptions\TicketMissingCategoryException;
 
 class TicketService {
 
-    public function list(): LengthAwarePaginator
+    public function list($request): LengthAwarePaginator
     {
-        $tickets = Ticket::with('category')->orderBy('created_at','desc')->paginate(9);
+        $tickets = Ticket::Filter($request->only(['status', 'category_id', 'search']))
+                    ->with('category')
+                    ->orderBy('created_at','desc')
+                    ->paginate(9);
 
         $tickets->getCollection()->transform(function($ticket){
             return TicketDTO::fromModel($ticket);

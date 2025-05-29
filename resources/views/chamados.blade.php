@@ -48,7 +48,6 @@
 
              <div class="col-auto">
                 <div class="mb-2">
-                    <button type="button" class="btn btn-primary waves-effect waves-light mb-2 filter">Filtrar</button>
                 </div>
             </div>
             

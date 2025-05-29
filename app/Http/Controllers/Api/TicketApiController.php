@@ -5,14 +5,15 @@ namespace App\Http\Controllers\Api;
 use Exception;
 use App\Models\Ticket;
 use App\DTOs\TicketDTO;
+use Illuminate\Http\Request;
 use App\Services\TicketService;
 use App\Traits\ApiResponseTrait;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Ticket\StoreRequest;
 use App\Http\Requests\Ticket\UpdateRequest;
 use App\Exceptions\TicketInvalidStatusException;
 use App\Exceptions\TicketMissingCategoryException;
-use Illuminate\Http\JsonResponse;
 
 class TicketApiController extends Controller
 {
@@ -25,11 +26,11 @@ class TicketApiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
         try {
             sleep(1);
-            $data = $this->service->list();
+            $data = $this->service->list($request);
 
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), 500);
