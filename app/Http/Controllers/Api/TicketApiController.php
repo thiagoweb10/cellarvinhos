@@ -12,6 +12,7 @@ use App\Http\Requests\Ticket\StoreRequest;
 use App\Http\Requests\Ticket\UpdateRequest;
 use App\Exceptions\TicketInvalidStatusException;
 use App\Exceptions\TicketMissingCategoryException;
+use Illuminate\Http\JsonResponse;
 
 class TicketApiController extends Controller
 {
@@ -24,10 +25,10 @@ class TicketApiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         try {
-
+            sleep(1);
             $data = $this->service->list();
 
         } catch (Exception $e) {
@@ -40,7 +41,7 @@ class TicketApiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreRequest $request): JsonResponse
     {
         try {
 
@@ -60,7 +61,7 @@ class TicketApiController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Ticket $ticket)
+    public function show(Ticket $ticket): JsonResponse
     {
         try {
 
@@ -76,10 +77,10 @@ class TicketApiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequest $request, Ticket $ticket)
+    public function update(UpdateRequest $request, Ticket $ticket): JsonResponse
     {
         try {
-            
+
             $data = TicketDTO::fromArray($request->validated());
             $this->service->update($data, $ticket);
 
@@ -96,7 +97,7 @@ class TicketApiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Ticket $ticket)
+    public function destroy(Ticket $ticket): JsonResponse
     {
         try {
 

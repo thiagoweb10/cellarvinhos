@@ -14,7 +14,7 @@ class TicketService {
 
     public function list(): LengthAwarePaginator
     {
-        $tickets = Ticket::orderBy('title')->paginate(10);
+        $tickets = Ticket::with('category')->orderBy('created_at','desc')->paginate(9);
 
         $tickets->getCollection()->transform(function($ticket){
             return TicketDTO::fromModel($ticket);

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
-{ 
+{
     use HasFactory;
 
 
@@ -15,5 +15,9 @@ class Ticket extends Model
 
     public function category(){
         return $this->belongsTo(Category::class);
+    }
+
+    public function getCategoryNameAttribute(){
+        return $this->category?->name ?? 'Sem categoria';
     }
 }

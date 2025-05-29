@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Request;
 class CategoryDTO {
 
     public function __construct(
+        public readonly string $id,
         public readonly string $name
     ) {}
 
@@ -15,6 +16,7 @@ class CategoryDTO {
     public static function fromRequest(Request $request): self
     {
         return new self(
+            id: $request->input('id'),
             name: $request->input('name')
         );
     }
@@ -22,6 +24,7 @@ class CategoryDTO {
     public static function fromModel(Category $category): self
     {
         return new self(
+            id: $category->id,
             name: $category->name
         );
     }
@@ -29,6 +32,7 @@ class CategoryDTO {
     public static function fromArray(array $data): self
     {
         return new self(
+            id: $data['id'],
             name: $data['name']
         );
     }
@@ -36,6 +40,7 @@ class CategoryDTO {
     public function toArray(): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
         ];
     }
