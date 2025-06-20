@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Request;
 class CategoryDTO {
 
     public function __construct(
-        public readonly string $id,
+        public readonly ?int $id,
         public readonly string $name
     ) {}
 
@@ -16,7 +16,7 @@ class CategoryDTO {
     public static function fromRequest(Request $request): self
     {
         return new self(
-            id: $request->input('id'),
+            id: $request->input('id')?? null,
             name: $request->input('name')
         );
     }
@@ -32,7 +32,7 @@ class CategoryDTO {
     public static function fromArray(array $data): self
     {
         return new self(
-            id: $data['id'],
+           id: $data['id'] ?? null,
             name: $data['name']
         );
     }

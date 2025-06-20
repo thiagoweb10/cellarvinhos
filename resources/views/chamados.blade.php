@@ -150,11 +150,7 @@
             getDataModal(ticket_id, 'category_id');
         });
 
-        $(document).on('change', '#filter-category', function() {
-            loadTickets(0);
-        });
-
-        $(document).on('change', '#filter-status', function() {
+        $(document).on('change', '#filter-category, #filter-status', function() {
             loadTickets(0);
         });
         

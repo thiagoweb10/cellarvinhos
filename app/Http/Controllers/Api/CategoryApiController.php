@@ -6,8 +6,10 @@ use Exception;
 
 use App\Models\Category;
 use App\DTOs\CategoryDTO;
+use Illuminate\Http\Request;
 use App\Traits\ApiResponseTrait;
 use App\Services\CategoryService;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\StoreRequest;
 use App\Http\Requests\Category\UpdateRequest;
@@ -23,11 +25,11 @@ class CategoryApiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request):JsonResponse
     {
         try {
 
-            $data = $this->service->list();
+            $data = $this->service->list($request);
 
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), 500);

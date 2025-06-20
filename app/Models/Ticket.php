@@ -25,6 +25,9 @@ class Ticket extends Model
     public function scopeFilter($query, array $filters){
         
         return $query
+                    ->when($filters['title'] ?? false, fn($q, $title) =>
+                        $q->where('title', 'like', "%$title%")
+                    )
                     ->when($filters['status'] ?? false, fn($q, $status) =>
                         $q->where('status', $status)
                     )

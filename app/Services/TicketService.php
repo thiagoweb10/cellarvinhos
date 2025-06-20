@@ -14,7 +14,7 @@ class TicketService {
 
     public function list($request): LengthAwarePaginator
     {
-        $tickets = Ticket::Filter($request->only(['status', 'category_id', 'search']))
+        $tickets = Ticket::Filter($request->only(['status', 'category_id', 'title']))
                     ->with('category')
                     ->orderBy('created_at','desc')
                     ->paginate(9);

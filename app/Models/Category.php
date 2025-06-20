@@ -14,4 +14,12 @@ class Category extends Model
     public function ticket(){
         return $this->hasMany(Ticket::class);
     }
+
+    public function scopeFilter($query, array $filters){
+        
+        return $query
+                    ->when($filters['name'] ?? false, fn($q, $name) =>
+                        $q->where('name','LIKE',"%{$name}%")
+                    );
+    }
 }

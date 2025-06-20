@@ -5,18 +5,21 @@ namespace App\Services;
 use Exception;
 use App\Models\Category;
 use App\DTOs\CategoryDTO;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategoryService {
 
-    public function list()
+    public function list($request) :LengthAwarePaginator
     {
-        $categories = Category::orderBy('name')->paginate(10);
+        $categories = Category::Filter($request->only(['name']))
+                        ->orderBy('name')
+                        ->paginate(10);
 
         $categories->getCollection()->transform(function($category){
             return CategoryDTO::fromModel($category);
         });
 
-        return $categories->toArray();
+        return $categories;
     }
 
     public function create(CategoryDTO $category)
