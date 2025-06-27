@@ -16,5 +16,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware('admin')->group(function () {
         Route::apiResource('categories', CategoryApiController::class);
+        Route::apiResource('users', UserApiController::class);
     });
 });

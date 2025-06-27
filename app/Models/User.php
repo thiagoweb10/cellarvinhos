@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -50,5 +51,23 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function tickets(){
+        return $this->hasMany(Ticket::class);
+    }
+    
+    public function scopeFilter($query, array $filters): Builder
+    {
+        return $query
+                    ->when($filters['name'] ?? false, fn($q, $name) =>
+                        $q->where('name', 'like', "%$name%")
+                    )
+                    ->when($filters['document'] ?? false, fn($q, $document) =>
+                        $q->where('document', $document)
+                    )
+                    ->when($filters['status'] ?? false, fn($q, $status) =>
+                        $q->where('status', $status)
+                    );
     }
 }

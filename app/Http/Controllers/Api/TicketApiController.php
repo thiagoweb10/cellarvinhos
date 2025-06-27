@@ -29,7 +29,6 @@ class TicketApiController extends Controller
     public function index(Request $request): JsonResponse
     {
         try {
-            sleep(1);
             $data = $this->service->list($request);
 
         } catch (Exception $e) {

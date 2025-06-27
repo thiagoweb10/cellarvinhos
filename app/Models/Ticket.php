@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Category;
+use Illuminate\Database\Eloquent\Builder;
 
 class Ticket extends Model
 {
@@ -17,13 +19,16 @@ class Ticket extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function tickets(){
+        return $this->belongsTo(User::class);
+    }
+
     public function getCategoryNameAttribute(){
         return $this->category?->name ?? 'Sem categoria';
     }
 
-
-    public function scopeFilter($query, array $filters){
-        
+    public function scopeFilter($query, array $filters): Builder
+    {
         return $query
                     ->when($filters['title'] ?? false, fn($q, $title) =>
                         $q->where('title', 'like', "%$title%")
