@@ -18,6 +18,24 @@ return [
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Authentication Api
+    |--------------------------------------------------------------------------
+    |
+    | This option defines the default authentication "api"
+    |
+    */
+
+
+    'guards' => [
+        'api' => [
+            'driver' => 'sanctum',
+            'provider' => 'users',
+        ],
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
