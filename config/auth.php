@@ -17,25 +17,7 @@ return [
         'guard' => env('AUTH_GUARD', 'web'),
         'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
     ],
-
-
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Api
-    |--------------------------------------------------------------------------
-    |
-    | This option defines the default authentication "api"
-    |
-    */
-
-
-    'guards' => [
-        'api' => [
-            'driver' => 'sanctum',
-            'provider' => 'users',
-        ],
-    ],
-
+    
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -56,6 +38,11 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
+            'provider' => 'users',
+        ],
+
+        'api' => [
+            'driver' => 'sanctum',
             'provider' => 'users',
         ],
     ],

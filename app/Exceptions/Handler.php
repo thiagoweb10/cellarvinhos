@@ -3,8 +3,9 @@
 namespace App\Exceptions;
 
 use Throwable;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class Handler extends ExceptionHandler
@@ -61,6 +62,15 @@ class Handler extends ExceptionHandler
             ], 403);
         }
 
+        if ($exception instanceof \Illuminate\Auth\AuthenticationException) {
+            return response()->json(['message' => 'Não autenticado.'], 401);
+        }
+
         return parent::render($request, $exception);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception): \Illuminate\Http\JsonResponse
+    {
+        return response()->json(['message' => 'Não autenticado.'], 401);
     }
 }
