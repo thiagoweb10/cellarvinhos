@@ -29,13 +29,14 @@ class TicketApiController extends Controller
     public function index(Request $request): JsonResponse
     {
         try {
+
             $data = $this->service->list($request);
+
+            return $this->successResponse($data, 'Listagem gerada com sucesso!');
 
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), 500);
         }
-
-        return $this->successResponse($data, 'Listagem gerada com sucesso!');
     }
 
     /**
@@ -48,14 +49,14 @@ class TicketApiController extends Controller
             $dataDTO = TicketDTO::fromArray($request->validated());
             $this->service->create($dataDTO);
 
+            return $this->successResponse([], 'Chamado criado com sucesso!', 201);
+
         } catch (TicketInvalidStatusException | TicketMissingCategoryException $e){
             return $this->errorResponse($e->getMessage(), 500);
 
         } catch (Exception $e) {
             return $this->errorResponse('Um erro inesperado: '.$e->getMessage(), 500);
         }
-
-        return $this->successResponse([], 'Chamado criado com sucesso!', 201);
     }
 
     /**
@@ -67,11 +68,11 @@ class TicketApiController extends Controller
 
             $ticket = $this->service->show($ticket);
 
+            return $this->successResponse($ticket->toArray(), 'Operação realizada com sucesso!');
+
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), 500);
         }
-
-        return $this->successResponse($ticket->toArray(), 'Operação realizada com sucesso!');
     }
 
     /**
@@ -84,14 +85,14 @@ class TicketApiController extends Controller
             $data = TicketDTO::fromArray($request->validated());
             $this->service->update($data, $ticket);
 
+            return $this->successResponse([], 'Registro atualizado com sucesso!');
+
         } catch (TicketInvalidStatusException | TicketMissingCategoryException $e){
             return $this->errorResponse($e->getMessage(), 500);
 
         } catch (Exception $e) {
             return $this->errorResponse('Um erro inesperado: '.$e->getMessage(), 500);
         }
-
-        return $this->successResponse([], 'Registro atualizado com sucesso!');
     }
 
     /**
@@ -103,10 +104,10 @@ class TicketApiController extends Controller
 
             $this->service->delete($ticket);
 
+            return $this->successResponse([], 'Ticket excluído com sucesso!', 200);
+
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage(), 500);
         }
-
-        return $this->successResponse([], 'Ticket excluído com sucesso!', 200);
     }
 }

@@ -20,6 +20,8 @@ return new class extends Migration
                 ->constrained('categories')
                 ->onDelete('restrict');
             $table->timestamps();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('restrict');
+            $table->foreignId('responsable_id')->nullable()->constrained('users')->onDelete('restrict');
         });
     }
 

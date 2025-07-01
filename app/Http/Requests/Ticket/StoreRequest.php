@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Ticket;
 
+use auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreRequest extends FormRequest
@@ -12,6 +13,13 @@ class StoreRequest extends FormRequest
     public function authorize(): bool
     {
         return true;
+    }
+
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'user_id' => auth()->id(),
+        ]);
     }
 
     /**
@@ -26,6 +34,7 @@ class StoreRequest extends FormRequest
             'description' => ['nullable', 'string'],
             'status' => ['required', 'string'],
             'category_id' => ['required', 'integer'],
+            'user_id' => 'required|exists:users,id',
         ];
     }
 }

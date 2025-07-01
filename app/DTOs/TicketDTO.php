@@ -15,7 +15,8 @@ class TicketDTO {
         public readonly string  $status,
         public readonly int     $category_id,
         public readonly ?string $category_name = null,
-        public readonly ?string $created_at = null
+        public readonly ?string $created_at = null,
+        public readonly ?int    $user_id = null,
     ) {}
 
     public static function fromRequest(Request $request): self
@@ -38,6 +39,7 @@ class TicketDTO {
             status: $ticket->status,
             category_id: $ticket->category_id,
             category_name: $ticket->category->name ?? null,
+            user_id: $ticket->user_id ?? null,
             created_at: $ticket->created_at?->format('d/m/Y H:i')
         );
     }
@@ -49,7 +51,8 @@ class TicketDTO {
             title: $data['title'],
             description: $data['description'],
             status: $data['status'],
-            category_id: $data['category_id']
+            category_id: $data['category_id'],
+            user_id: $data['user_id'] ?? null,
         );
     }
 
@@ -59,7 +62,8 @@ class TicketDTO {
             'title' => $this->title,
             'description' => $this->description,
             'status' => $this->status,
-            'category_id' => $this->category_id
+            'category_id' => $this->category_id,
+            'user_id' => $this->user_id,
         ];
 
         if (!is_null($this->id)) {
