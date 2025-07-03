@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
+            $table->text('resolution')->nullable();
             $table->enum('status', ['Aberto', 'Em_Progresso', 'Resolvido'])->default('Aberto');
             $table->foreignId('category_id')
                 ->constrained('categories')
