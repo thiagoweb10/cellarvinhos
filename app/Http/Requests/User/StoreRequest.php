@@ -20,7 +20,13 @@ class StoreRequest extends FormRequest
         $this->merge([
             'email' => strtolower($this->email),
             'document' => preg_replace('/\D/', '', $this->document),
-            'phone' => preg_replace('/\D/', '', $this->phone),
+            'phone' => preg_replace('/\D/', '', $this->phone)
+        ]);
+
+        $senha = $this->input('password', '123mudar');
+
+        $this->merge([
+            'password' => Hash::make($senha),
         ]);
     }
 
@@ -35,7 +41,6 @@ class StoreRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'document' => ['required', 'string', 'max:20', 'unique:users,document'],
             'phone' => ['required', 'string', 'max:20', 'unique:users,phone'],
-            'photo' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:users,email'],
             'role'  => ['required', 'string', 'max:50'],
             'password' => ['required', 'min:8'],
