@@ -1,6 +1,6 @@
-# 🎫 Sistema de Chamados (Tickets) - Laravel 12 + jQuery + Blade
-
-Este projeto é um sistema de chamados (tickets) desenvolvido com **Laravel 12**, utilizando **princípios SOLID** e arquitetura limpa na API. O frontend é construído com **Blade** e **jQuery**, com consumo da API via AJAX.
+# 🎫 Sistema de Chamados (Tickets) - Laravel 12
+Este projeto é um sistema de chamados (tickets) desenvolvido com **Laravel 12**, utilizando **princípios SOLID** e arquitetura limpa na API.
+<br><br>
 
 
 
@@ -11,14 +11,9 @@ Este projeto é um sistema de chamados (tickets) desenvolvido com **Laravel 12**
 - PHP 8.2+
 - MySQL ou PostgreSQL
 - API RESTful
-- Arquitetura com Service e DTOs
+- Arquitetura com Service, DTOs, DRY e KISS
 - Exceptions de domínio personalizadas
 
-### Frontend
-- Blade (Laravel Templates)
-- jQuery (requisições AJAX)
-- Bootstrap 5 (estilização)
-- UBold Theme (template)
 
 ## ⚙️ Instalação e Configuração
 
@@ -78,32 +73,18 @@ php artisan serve
 | PUT    | /api/tickets/{id}      | Atualizar ticket              |
 | DELETE | /api/tickets/{id}      | Excluir ticket                |
 |        |                        |                               |
+| GET    | /api/users             | Listar todos as users         |
+| GET    | /api/users/{id}        | Ver detalhes de uma users     |
+| POST   | /api/users             | Criar uma nova users          |
+| PUT    | /api/users/{id}        | Atualizar users               |
+| DELETE | /api/users/{id}        | Excluir users                 |
+|        |                        |                               |
 | GET    | /api/categories        | Listar todos as categorias    |
 | GET    | /api/categories/{id}   | Ver detalhes de uma categoria |
 | POST   | /api/categories        | Criar uma nova categoria      |
 | PUT    | /api/categories/{id}   | Atualizar categoria           |
 | DELETE | /api/categories/{id}   | Excluir categoria             |
----
 
-## 💻 Exemplo de chamada AJAX
-
-```js
-$.ajax({
-  url: '/api/tickets',
-  method: 'POST',
-  data: {
-    title: 'Erro ao acessar sistema',
-    description: 'Usuário não consegue acessar o painel.',
-    category_id: 1
-  },
-  success: function(response) {
-    console.log('Ticket criado!', response);
-  },
-  error: function(err) {
-    console.error(err.responseJSON.message);
-  }
-});
-```
 
 ---
 ## 📁 Estrutura de Código (parcial)
@@ -113,16 +94,23 @@ app/
 ├── DTOs/
 │   └── Ticket/
 │   └── Category/
+├── Actions/
+│   └── LoginUserAction.php
+│   └── LogoutUserAction.php
 ├── Enums/
 │   └── Ticket/
 ├── Exceptions/
 │   └── Ticket/
+│   └── Auth/
+│   └── User/
 ├── Http/
 │   ├── Controllers/
 │   │   └── API/
 │   └── Requests/
 │       └── Ticket/
 │       └── Category/
+├── Trait/
+│   └── ApiResponseTrait.php
 ├── Models/
 │   └── Ticket.php
 │   └── Category.php
