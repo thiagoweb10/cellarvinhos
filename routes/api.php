@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\CategoryApiController;
 
 Route::post('login', [AuthApiController::class, 'login']);
 
+Route::get('/public/categories', [CategoryApiController::class,'getAllList']);
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('/me', [AuthApiController::class, 'me']);

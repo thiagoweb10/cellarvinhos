@@ -14,6 +14,7 @@ class UserDTO {
         public readonly ?string $photo = null,
         public readonly string  $email,
         public readonly string  $role,
+        public readonly string  $status,
         public readonly ?string $created_at,
         public readonly ?string $password
     ) {}
@@ -29,6 +30,7 @@ class UserDTO {
             email: $data['email'],
             password: $data['password'] ?? null,
             role: $data['role'],
+            status: $data['status'],
             created_at: $data['created_at'] ?? null,
         );
     }
@@ -44,6 +46,7 @@ class UserDTO {
             email: $user->email,
             password: $user->password ?? null,
             role: $user->role,
+            status: $user->status,
             created_at: $user->created_at?->format('d/m/Y H:i')
         );
     }
@@ -57,6 +60,7 @@ class UserDTO {
             'photo' => $this->photo ?? null,
             'email' => $this->email,
             'role'  => $this->role,
+            'status' => $this->status,
             'created_at' => $this->created_at?->format('d/m/Y H:i') ?? date('Y/m/d H:i')
         ];
 
@@ -76,6 +80,7 @@ class UserDTO {
         'phone' => $this->phone,
         'photo' => $this->photo,
         'role' => $this->role,
+        'status' => $this->status,
         'password' => \Hash::make($this->password),
     ];
 }

@@ -103,4 +103,17 @@ class CategoryApiController extends Controller
 
         return $this->successResponse([], 'Categoria excluida com sucesso!', 200);
     }
+
+    public function getAllList(){
+
+        try {
+
+            $data = $this->service->getListAll();
+
+            return $this->successResponse($data, 'Listagem gerada com sucesso!');
+
+        } catch (Exception $e) {
+            return $this->errorResponse($e->getMessage(), 500);
+        }
+    }
 }

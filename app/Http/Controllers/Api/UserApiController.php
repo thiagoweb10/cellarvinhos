@@ -76,8 +76,10 @@ class UserApiController extends Controller
     public function update(UpdateRequest $request, User $user): JsonResponse
     {
         try {
-
-            $data = UserDTO::fromArray($request->validated());
+            $data = UserDTO::fromArray(
+                array_merge($request->validated(), ['id' => $user->id])
+            );
+            
             $this->service->update($data, $user);
 
             return $this->successResponse([], 'Registro atualizado com sucesso!');

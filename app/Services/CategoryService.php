@@ -5,6 +5,7 @@ namespace App\Services;
 use Exception;
 use App\Models\Category;
 use App\DTOs\CategoryDTO;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class CategoryService {
@@ -20,6 +21,11 @@ class CategoryService {
         });
 
         return $categories;
+    }
+
+    public function getListAll() : Collection
+    {
+        return Category::all();
     }
 
     public function create(CategoryDTO $category)
